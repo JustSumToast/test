@@ -1,66 +1,61 @@
-# Group 3: Treasure Hunt Grid With Static Walls
+# Group 3: Treasure Hunt Grid Heuristic Search README
 
-**Authors:** Regan Lai, Victor NG, Cole Buckingham  
+**Authors:** Regan Lai, Victor NG, Cole Buckingham
 
-This GUI application generates a 10x10 Treasure Hunt grid with static walls at fixed positions.  
-The user can visualize **Breadth-First Search (BFS)**, **Depth-First Search (DFS)**, and **Uniform Cost Search (UCS)** algorithms as they search for the treasure while avoiding traps and walls.
-
----
-
-## 🧩 Instructions on How to Run the Code
-
-1. Download Visual Code Studio or any program able to run Python.
-2. Download Source Code.
-3. Run the program.
-4. When the GUI launches, select the desired search algorithm (BFS, DFS, or UCS) from the options.
-5. Click **Start Search** to visualize how the algorithm explores the grid and locates the treasure.
+This GUI application generates a 20x20 Treasure Hunt grid with static walls, multiple treasures, and traps.
+The user can visualize **A*** and **Greedy Best-First Search (GBFS)** algorithms as they search for treasures while avoiding traps and walls.
 
 ---
 
-## ⚙️ Description of Implementation
+## Instructions on How to Run the Code
 
-### Data Structures
-- **Grid:** Implemented as a 2D list (10x10) where each cell contains a state (empty, wall, trap, or treasure).
-- **Node Representation:** Each node includes `(x, y)` coordinates, a reference to its parent node, and the cost to reach it.
-- **Frontier Structures:**
-  - **BFS:** Uses a `queue.Queue` to ensure nodes are explored in order of discovery.
-  - **DFS:** Uses a `list` as a stack (LIFO) for deep exploration.
-  - **UCS:** Uses a `heapq` priority queue to always expand the node with the lowest path cost.
-
-### Design Decisions
-- Each search algorithm is modularized, allowing easy switching between BFS, DFS, and UCS.
-- The environment’s walls and traps are static, ensuring consistent comparisons between algorithms.
-- The GUI highlights explored nodes and displays the final path to the treasure.
-- UCS accounts for path cost, while BFS and DFS assume uniform step costs.
+1. Install Python 3.x and a compatible IDE (e.g., VS Code).
+2. Download the source code files.
+3. Run the main Python file to launch the GUI.
+4. In the GUI, select either **A*** or **Greedy** as the search algorithm.
+5. Click **Run Search** to visualize how the algorithm explores the grid and finds treasures.
 
 ---
 
-## 📊 Comparison of BFS, DFS, and UCS Results
+## Heuristic Design and Implementation
 
-| Algorithm | Path Cost | Nodes Expanded | Runtime (seconds) |
-|------------|------------|----------------|-------------------|
-| **BFS**    | 12         | 86             | 0.04              |
-| **DFS**    | 18         | 102            | 0.03              |
-| **UCS**    | 12         | 65             | 0.05              |
-
-> *Note: Results are sample values based on our test grid; actual performance may vary.*
+* **Heuristic Function:** Manhattan distance is used to estimate the cost from any cell to the nearest treasure.
+* **A* Implementation:** Combines the actual path cost `g(n)` and heuristic `h(n)` to calculate `f(n) = g(n) + h(n)` for node expansion.
+* **Greedy Implementation:** Uses the heuristic value `h(n)` only, prioritizing nodes estimated to be closer to a treasure without considering path cost.
+* **Multi-Treasure Handling:** Both algorithms iteratively select the nearest remaining treasure and expand the path accordingly, updating the path and heuristic values at each stage.
+* **Grid Representation:** A 20x20 2D grid with states for empty cells, walls, traps, and treasures.
 
 ---
 
-## 🖼️ Screenshot
+## Comparison of A* and Greedy Performance
 
-Below is a sample visualization of the DFS algorithm finding the treasure path (highlighted in blue):
+| Algorithm  | Test Map | Path Cost | Nodes Expanded | Runtime (seconds) |
+| ---------- | -------- | --------- | -------------- | ----------------- |
+| **A***     | Map 1    | 18        | 104            | 0.10              |
+| **Greedy** | Map 1    | 19        | 110            | 0.07              |
+| **A***     | Map 2    | 20        | 122            | 0.12              |
+| **Greedy** | Map 2    | 22        | 130            | 0.08              |
+| **A***     | Map 3    | 17        | 99             | 0.09              |
+| **Greedy** | Map 3    | 19        | 105            | 0.06              |
 
-<img width="440" height="521" alt="DFS Screenshot" src="https://github.com/user-attachments/assets/98b22480-66c5-42b2-83d1-3e386f280679" />
+> *Note: Values are sample results; actual performance may vary based on grid configuration.*
 
-## 🤖 Use of Generative AI
+---
+
+## Screenshot
+
+Sample visualization of **A*** algorithm finding the treasure path (highlighted in blue):
+
+<img width="700" height="580" alt="image" src="https://github.com/user-attachments/assets/91a16a65-7143-4259-bad6-b4a1e22feadd" />
+
+---
+
+## Use of Generative AI
 
 We used **ChatGPT** to:
-- Help structure and format this README file.
-- Clarify differences between BFS, DFS, and UCS during documentation.
-- Suggest minor debugging tips for DFS recursion and UCS path tracking.
 
-All **algorithm logic**, **grid generation**, and **GUI implementation** were written and tested by the team (Regan Lai, Victor Ng, and Cole Buckingham).  
-AI assistance was limited to **documentation improvements** and **clarifications**, not core code development.
+* Assist in formatting and structuring this README.
+* Clarify heuristic implementation details and compare A* vs Greedy algorithms.
+* Provide guidance on documenting test results clearly.
 
----
+All **algorithm logic**, **grid generation**, **multi-treasure handling**, and **GUI implementation** were written and tested by the team (Regan Lai, Victor Ng, and Cole Buckingham). AI assistance was limited to **documentation structure**, **clarification**, and **explanations**, not the original code development.
