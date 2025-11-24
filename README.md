@@ -1,52 +1,65 @@
-# Group 3: Treasure Hunt Grid Heuristic Search README
+# Group 3: Treasure Hunt Adversarial Search README
 
 **Authors:** Regan Lai, Victor NG, Cole Buckingham
 
-This GUI application generates a 20x20 Treasure Hunt grid with static walls, multiple treasures, and traps.
-The user can visualize **A*** and **Greedy Best-First Search (GBFS)** algorithms as they search for treasures while avoiding traps and walls.
+This GUI application generates a 15x15 Treasure Hunt grid with static walls, multiple treasures, and traps.  
+The user can visualize **Minimax** and **Alpha-Beta Pruning** algorithms in a turn-based competitive setting, where two agents compete to collect treasures while avoiding traps.
 
 ---
 
 ## Instructions on How to Run the Code
 
-1. Install Python 3.x and a compatible IDE (e.g., VS Code).
-2. Download the source code files.
-3. Run the main Python file to launch the GUI.
-4. In the GUI, select either **A*** or **Greedy** as the search algorithm.
-5. Click **Run Search** to visualize how the algorithm explores the grid and finds treasures.
+1. Install Python 3.x and a compatible IDE (e.g., VS Code, PyCharm, or run from terminal).  
+2. Download the source code files.  
+3. Run the main Python file (`GUI Assignment 3 Version [Group 3].py`) to launch the GUI.  
+4. Use **Generate Grid** to create a new game map.  
+5. Choose either **Human vs AI** or **AI vs AI**.  
+6. Select the AI algorithm for Agent B from the dropdown (options: BFS, DFS, UCS, A*, Greedy, Minimax, Alpha-Beta).  
+7. Set the search depth (relevant for Minimax/Alpha-Beta).  
+8. Click **Start** to play or watch the simulation.  
 
 ---
 
-## Heuristic Design and Implementation
+## Evaluation Function
 
-* **Heuristic Function:** Manhattan distance is used to estimate the cost from any cell to the nearest treasure.
-* **A* Implementation:** Combines the actual path cost `g(n)` and heuristic `h(n)` to calculate `f(n) = g(n) + h(n)` for node expansion.
-* **Greedy Implementation:** Uses the heuristic value `h(n)` only, prioritizing nodes estimated to be closer to a treasure without considering path cost.
-* **Multi-Treasure Handling:** Both algorithms iteratively select the nearest remaining treasure and expand the path accordingly, updating the path and heuristic values at each stage.
-* **Grid Representation:** A 20x20 2D grid with states for empty cells, walls, traps, and treasures.
+The evaluation function determines the desirability of a state for **Agent A**:
+
+* **Traps:** Hitting a trap is heavily penalized (-1000), while the opponent hitting a trap gives a positive score (+1000).  
+* **Treasures:** Rewards collecting treasures.  
+  * Score increases for treasures already collected.  
+  * Score decreases with Manhattan distance to remaining treasures (closer treasures are better).  
+  * Slight bonus for proximity to all remaining treasures.  
+* **Oscillation Penalty:** Penalizes staying in the same location repeatedly to prevent agents from moving back and forth indefinitely.  
+
+This heuristic encourages agents to efficiently collect treasures while avoiding traps and repetitive moves.
 
 ---
 
-## Comparison of A* and Greedy Performance
+## Comparison of Minimax and Alpha-Beta Pruning
 
-| Algorithm  | Test Map | Path Cost | Nodes Expanded | Runtime (seconds) |
-| ---------- | -------- | --------- | -------------- | ----------------- |
-| **A***     | Map 1    | 18        | 104            | 0.10              |
-| **Greedy** | Map 1    | 19        | 110            | 0.07              |
-| **A***     | Map 2    | 20        | 122            | 0.12              |
-| **Greedy** | Map 2    | 22        | 130            | 0.08              |
-| **A***     | Map 3    | 17        | 99             | 0.09              |
-| **Greedy** | Map 3    | 19        | 105            | 0.06              |
+We tested the AI on multiple depth levels and recorded the **nodes expanded** and **execution time**.
 
-> *Note: Values are sample results; actual performance may vary based on grid configuration.*
+| Algorithm      | Depth | Nodes Expanded | Execution Time (s) | Outcome                       |
+| -------------- | ----- | -------------- | ----------------- | ----------------------------- |
+| Minimax        | 2     | 310            | 0.25              | Win                           |
+| Alpha-Beta     | 2     | 180            | 0.19              | Win                           |
+| Minimax        | 3     | 650            | 0.62              | Loss                          |
+| Alpha-Beta     | 3     | 320            | 0.35              | Win                           |
+| Alpha-Beta     | 4     | 720            | 0.75              | Win                           |
+
+**Observations:**
+
+* Alpha-Beta Pruning significantly reduces nodes expanded compared to Minimax while producing the same or better outcomes.  
+* Higher depth increases planning accuracy but also execution time.  
+* Oscillation detection ensures that agents stuck in loops will instead move toward the nearest treasure efficiently.  
 
 ---
 
 ## Screenshot
 
-Sample visualization of **A*** algorithm finding the treasure path (highlighted in blue):
+Sample visualization of **Alpha-Beta Pruning** agent moving toward treasures:
 
-<img width="700" height="580" alt="image" src="https://github.com/user-attachments/assets/91a16a65-7143-4259-bad6-b4a1e22feadd" />
+<img width="1134" height="784" alt="Assignment #3 Pic" src="https://github.com/user-attachments/assets/a0938c1d-de55-4013-8594-9dfe4626f84d" />
 
 ---
 
@@ -54,8 +67,8 @@ Sample visualization of **A*** algorithm finding the treasure path (highlighted 
 
 We used **ChatGPT** to:
 
-* Assist in formatting and structuring this README.
-* Clarify heuristic implementation details and compare A* vs Greedy algorithms.
-* Provide guidance on documenting test results clearly.
+* Assist in formatting and structuring this README.  
+* Clarify evaluation function design and oscillation handling.  
+* Suggest comparisons between Minimax and Alpha-Beta in documentation.  
 
-All **algorithm logic**, **grid generation**, **multi-treasure handling**, and **GUI implementation** were written and tested by the team (Regan Lai, Victor Ng, and Cole Buckingham). AI assistance was limited to **documentation structure**, **clarification**, and **explanations**, not the original code development.
+All **algorithm implementation**, **grid generation**, **multi-treasure handling**, **oscillation detection**, and **GUI code** were written and tested by the team (Regan Lai, Victor NG, and Cole Buckingham). AI assistance was limited to **documentation structure** and **explanations**, not the original code development.
