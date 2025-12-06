@@ -104,4 +104,4 @@ We used **ChatGPT** to:
 * Assist in formatting and structuring this README.
 * Suggest visualization and reporting methods.
 
-All **core algorithmic code**, **Bayesian inference implementation**, **grid generation**, **multi-treasure handling**, and **GUI code** were written and tested by the team (Cole Buckingham, [Your Team Members]). AI assistance was limited to **documentation structure** and **explanations**, not the original code development.
+All **core algorithmic code**, **Bayesian inference implementation**, **grid generation**, **multi-treasure handling**, and **GUI code** were written and tested by the team (Cole Buckingham, Regan Lai, Victor NG). AI assistance was limited to **documentation structure** and **explanations**, not the original code development.
