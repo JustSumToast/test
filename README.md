@@ -27,9 +27,7 @@ The user can visualize an agent using **Bayesian inference** to detect treasures
 
 * **Sensor Model:**  P(observation | actual)
 
-  * True Positive (TP) = 1 - FN, False Negative (FN) = probability of missing a treasure, False Positive (FP) = probability of detecting a treasure when none is present.
-* **Bayesian Update Formula:**
-  [ \text{Belief}(cell) = \frac{P(obs|treasure) \cdot prior(cell)}{\sum_{all\ cells} P(obs|treasure) \cdot prior(cell)} ]
+<img width="585" height="165" alt="image" src="https://github.com/user-attachments/assets/16e803f0-cb3e-4a78-9526-1057692ff168" />
 
 This update occurs for each scan around the agent's location, incorporating noisy observations.
 
